@@ -20,22 +20,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Book Sug'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -47,36 +38,55 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+        backgroundColor: Colors.indigoAccent[100],
         body:
-            Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Books"),
-                      BookButton()
-                  ],
+            Stack(children: <Widget>[
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                        Container(
+                            child: BookButton(),
+                            alignment: Alignment.center,
+                        )
+                    ],),
+                Container(
+                    child: TopBar(),
+                    alignment: Alignment.topCenter,
                 )
-            )
+            ],)
+
+
     );
   }
 }
 
-int func() => 15;
 
+class TopBar extends StatelessWidget {
+    double _height = 80;
+    double _width = 350;
 
-int someFunc() => 12;
+    @override
+    Widget build(BuildContext context) {
+        return Container(
+            margin: EdgeInsets.all(25),
+            height: _height,
+            width: _width,
+            decoration:  BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                color: Colors.indigo,
+                boxShadow: [BoxShadow(color: Colors.white70)],
+
+            ),
+            alignment: Alignment.topCenter,
+            child: Row(
+                children: <Widget>[
+                    Icon(Icons.cake)
+                ],
+            ),
+    );
+  }
+}
 
 
 class BookButton extends StatefulWidget {
@@ -93,32 +103,32 @@ class _BookButtonState extends State<BookButton> {
     List<String> _strList = ['one', 'two', 'three'];
     int _index = 0;
     String _title = "one";
+    double _height = 200;
+    double _width = 200;
 
     void changeText(){
         setState(() {
           _index = ((_index+1)%3);
-          print(1%3);
           _title = _strList[_index];
         });
     }
-
-    String text() => this._strList[this._index];
 
     @override
     Widget build(BuildContext context) {
         return new InkWell(
             onTap: changeText,
             child: new Container(
-                height: 145,
-                width: 145,
+                height: _height,
+                width: _width,
                 decoration: new BoxDecoration(
                     borderRadius: new BorderRadius.circular(25),
-                    color: Colors.amberAccent,
+                    color: Colors.indigo,
                 ),
                 child: Center(child:
                 Text(_title,
                     style:
                         TextStyle(
+                            color: Colors.white,
                             fontSize: 24,
                             fontStyle: FontStyle.italic
                         ),
@@ -126,6 +136,5 @@ class _BookButtonState extends State<BookButton> {
                 )
             ) ,
         );
-
   }
 }
