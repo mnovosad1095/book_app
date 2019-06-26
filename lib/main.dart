@@ -44,18 +44,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,41 +59,73 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        body:
+            Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Books"),
+                      BookButton()
+                  ],
+                )
+            )
     );
+  }
+}
+
+int func() => 15;
+
+
+int someFunc() => 12;
+
+
+class BookButton extends StatefulWidget {
+    BookButton({Key key, this.title}) : super(key: key);
+
+    final String title;
+
+    @override
+    _BookButtonState createState() => _BookButtonState();
+
+}
+
+class _BookButtonState extends State<BookButton> {
+    List<String> _strList = ['one', 'two', 'three'];
+    int _index = 0;
+    String _title = "one";
+
+    void changeText(){
+        setState(() {
+          _index = ((_index+1)%3);
+          print(1%3);
+          _title = _strList[_index];
+        });
+    }
+
+    String text() => this._strList[this._index];
+
+    @override
+    Widget build(BuildContext context) {
+        return new InkWell(
+            onTap: changeText,
+            child: new Container(
+                height: 145,
+                width: 145,
+                decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.circular(25),
+                    color: Colors.amberAccent,
+                ),
+                child: Center(child:
+                Text(_title,
+                    style:
+                        TextStyle(
+                            fontSize: 24,
+                            fontStyle: FontStyle.italic
+                        ),
+                    ),
+                )
+            ) ,
+        );
+
   }
 }
